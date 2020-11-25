@@ -8,33 +8,15 @@ using TMPro;
 
 public class ArduinoInputManagerString : MonoBehaviour
 {
-    public enum TypeInput
-    {
-        number_00,
-        number_01,
-        number_02,
-        number_03,
-        number_04,
-        number_05,
-        number_06,
-        number_07,
-        number_08,
-        number_09,
-        character_Q,
-        character_W,
-        character_A,
-        character_S,
-        character_D,
-        character_Z,
-        character_X,
-        character_ESC
-    }
+    
     public static ArduinoInputManagerString instance;
     public event Action OnClick_1;
     public event Action OnClick_2;
     public event Action OnClick_3;
     public event Action OnClick_4;
 
+
+    
     private string dataInput;
     private TypeInput typeIP;
     public TextMeshProUGUI UduinoDebugTMP;
@@ -129,6 +111,7 @@ public class ArduinoInputManagerString : MonoBehaviour
         }
 
     }
+    private string[] dataCached = new[] { "-1", "-1", "-1", "-1", "-1", "-1" };
     public void OnDataReceived(string data, UduinoDevice device)
     {
         Debug.Log("Received");
@@ -144,26 +127,26 @@ public class ArduinoInputManagerString : MonoBehaviour
         else
         {
             var dataSplited = data.Split(';');
-            if (dataSplited[0] == "0")
+            if(dataSplited[0] != dataCached[0])
             {
-                OnClick_1?.Invoke();
-                Debug.Log("BUTTON_01");
+                if (dataSplited[0] == "0")
+                {
+                    OnClick_1?.Invoke();
+                    Debug.Log("BUTTON_01");
+                }
             }
-            if (dataSplited[1] == "0")
+            
+            if(dataSplited[1] != dataCached[1])
             {
-                OnClick_2?.Invoke();
-                Debug.Log("BUTTON_02");
+                if (dataSplited[1] == "0")
+                {
+                    OnClick_2?.Invoke();
+                    Debug.Log("BUTTON_02");
+                }
             }
-            if (dataSplited[2] == "0")
-            {
-                OnClick_3?.Invoke();
-                Debug.Log("BUTTON_03");
-            }
-            if (dataSplited[3] == "0")
-            {
-                OnClick_4?.Invoke();
-                Debug.Log("BUTTON_04");
-            }
+            
+
+           
         }
     }
 

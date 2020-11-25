@@ -2,19 +2,24 @@
 using UnityEngine;
 
 
-[CustomEditor(typeof(ArduinoInputManagerString))]
+[CustomEditor(typeof(InputManagerU))]
 public class CustomEditorInputManString : Editor
 {
-   /* public override void OnInspectorGUI()
+    InputManagerU arduiInput;
+    private void OnEnable()
+    {
+        arduiInput = (InputManagerU)target;
+    }
+
+    public override void OnInspectorGUI()
     {
 
-        ArduinoInputManagerString arduiInput = (ArduinoInputManagerString)target;
-
+        DrawDefaultInspector();
         if (GUILayout.Button("Add Input"))
         {
-
+            arduiInput.OnAddInput();
         }
-    }*/
+    }
 }
 
 
